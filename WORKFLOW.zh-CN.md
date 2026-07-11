@@ -32,15 +32,15 @@ FcMobile/
 
 **① 挑精华**（可选 —— 全自动，从一整场比赛录像里挑）
 ```bash
-python utils/hl_ocr.py <整场比赛.mp4> <player>   # 只保留你的进球（左边比分 +1），
+uv run utils/hl_ocr.py <整场比赛.mp4> <player>   # 只保留你的进球（左边比分 +1），
                                                  # 裁「进球 → 卡弹出」，不含 EA 过场 → <player>/highlights/
 ```
 输出 `goalN.mp4` + `goals.json`。把想用的片段拷进 `<player>/clips/`。
-（人工核对：`python utils/hl_scan.py <视频>` 生成抽帧时间线，肉眼看。）
+（人工核对：`uv run utils/hl_scan.py <视频>` 生成抽帧时间线，肉眼看。）
 
 **② 认段号 + 配置**
 ```bash
-python utils/contact_sheet.py <player>        # 素材总览图 → 认清哪条片段是第 #1..#N 段
+uv run utils/contact_sheet.py <player>        # 素材总览图 → 认清哪条片段是第 #1..#N 段
 ```
 然后编辑 `<player>/edl.json`：
 - `order` = 成片顺序（段号）← **这就是「拼接 + 分段」**
@@ -51,12 +51,12 @@ python utils/contact_sheet.py <player>        # 素材总览图 → 认清哪条
 
 **③ 出片**
 ```bash
-python utils/make_video.py <player>           # → output/ 竖屏 + 横屏（片头/字幕/转场/片尾/BGM 全自动）
+uv run utils/make_video.py <player>           # → output/ 竖屏 + 横屏（片头/字幕/转场/片尾/BGM 全自动）
 ```
 
 **④ 封面**
 ```bash
-python utils/cover.py <player>                # 抠图卡 + 真人照 → output/cover.jpg
+uv run utils/cover.py <player>                # 抠图卡 + 真人照 → output/cover.jpg
 ```
 
 ## 「拼接 → 分段 → 配字幕」怎么落到文件上
@@ -68,7 +68,7 @@ python utils/cover.py <player>                # 抠图卡 + 真人照 → output
 ```bash
 mkdir -p Ronaldo/{clips,assets,highlights,output}
 # 片段 → Ronaldo/clips/ ；landing.PNG、卡抠图、真人海报 → Ronaldo/assets/ ；写 Ronaldo/edl.json
-python utils/make_video.py Ronaldo            # utils/ 原样复用 —— 一行代码都不改
+uv run utils/make_video.py Ronaldo            # utils/ 原样复用 —— 一行代码都不改
 ```
 
 换球员唯一必须调的：`edl.json` 里的 `landing_card_focus` —— 新卡在阵容图里的中心位置（好让片头缩放聚焦到对的卡）。

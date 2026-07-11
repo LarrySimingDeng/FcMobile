@@ -1,0 +1,20 @@
+[project]
+name = "fcmobile"
+version = "0.1.0"
+description = "Turn pre-cut FC Mobile clips into a vertical (9:16) + 4K-landscape player-review video — intro, captions, transitions, Apple-style outro, cover, and BGM from one command."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [{ name = "Siming Deng" }]
+keywords = ["ffmpeg", "pillow", "video-editing", "fc-mobile", "shorts"]
+dependencies = [
+    "pillow>=9.0",
+]
+
+# This is an application (scripts under utils/), not an installable library —
+# uv only needs to build the dependency environment, not the project itself.
+[tool.uv]
+package = false
+
+# System dependency NOT managed here: ffmpeg + ffprobe must be on your PATH
+# (macOS: `brew install ffmpeg`).  hl_ocr.py needs no OCR engine.

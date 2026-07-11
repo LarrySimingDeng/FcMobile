@@ -10,6 +10,7 @@
 ![Python](https://img.shields.io/badge/Python-3.9%2B-3776AB?logo=python&logoColor=white)
 ![Needs ffmpeg](https://img.shields.io/badge/needs-ffmpeg-007808?logo=ffmpeg&logoColor=white)
 ![Built with Pillow](https://img.shields.io/badge/built%20with-Pillow-blue)
+![Managed with uv](https://img.shields.io/badge/managed%20with-uv-7E56C2)
 ![Platform](https://img.shields.io/badge/platform-macOS%20·%20Linux%2FWin%20(swap%20encoder)-lightgrey)
 
 </div>
@@ -59,21 +60,22 @@ Videos and covers produced by this exact pipeline:
 
 ## Requirements
 
-- **Python 3** — developed on Python 3.14; anything 3.9+ works.
-- **[Pillow](https://python-pillow.org/)** — `pip install -r requirements.txt`
-- **ffmpeg + ffprobe** on your `PATH` — the one system dependency, not installed by pip:
+- **[uv](https://docs.astral.sh/uv/)** — the package & virtualenv manager this project uses. Install it with `brew install uv` or `curl -LsSf https://astral.sh/uv/install.sh | sh`.
+- **Python 3.9+** — you don't need to install it yourself; uv fetches and pins a suitable interpreter (developed on 3.14).
+- **[Pillow](https://python-pillow.org/)** — the only Python dependency; uv installs it from `pyproject.toml` / `uv.lock`. No manual `pip` step.
+- **ffmpeg + ffprobe** on your `PATH` — the one system dependency uv can't manage:
   - macOS — `brew install ffmpeg`
   - Debian/Ubuntu — `sudo apt install ffmpeg`
 
 > `hl_ocr.py` (automatic goal detection) needs **no OCR engine** — it detects goals by image change, not by reading text, so there is nothing extra to install.
 
 ```bash
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
+uv sync            # creates .venv at the repo root and installs Pillow from the lockfile
 ```
 
-> **`make_video.py` runs the render scripts through `.venv/bin/python`** (a virtualenv at the repo root). Create the venv exactly as shown above, or edit the `PY=` line at the top of `utils/make_video.py` to point at your interpreter. The other scripts run under any `python`.
+That is the whole setup. Run any script with `uv run` (e.g. `uv run utils/make_video.py Mbappe`); uv re-syncs the environment automatically if anything changed.
+
+> **`make_video.py` runs the render scripts through `.venv/bin/python`** (the virtualenv at the repo root). `uv sync` creates exactly that venv, so this works out of the box — no need to activate anything. (To use a different interpreter, edit the `PY=` line at the top of `utils/make_video.py`.)
 
 ### Platform note
 
@@ -106,7 +108,8 @@ FcMobile/
 │   └── output/                #   vertical_final.mp4 · landscape_final.mp4 · cover.jpg
 ├── K77/                       # A second example (Kvaratskhelia)
 ├── assets/                    # Shared assets episodes reference via ../assets/ (landing.PNG, bgm/)
-├── requirements.txt
+├── pyproject.toml             # uv project — Python deps (Pillow)
+├── uv.lock                    # pinned, reproducible lockfile
 ├── LICENSE
 └── README.md
 ```
@@ -119,17 +122,17 @@ Copy the worked example, drop in your own materials, edit one JSON, run two comm
 
 ```bash
 # 1. Build a thumbnail grid to see which clip is segment #1..#N
-python utils/contact_sheet.py Mbappe
+uv run utils/contact_sheet.py Mbappe
 
 # 2. Edit Mbappe/edl.json  →  order / captions / landing_card_focus / poster / bgm
 
 # 3. Render both masters (vertical + landscape 4K)
-python utils/make_video.py Mbappe
+uv run utils/make_video.py Mbappe
 #   → Mbappe/output/vertical_final.mp4    (1080×1920, RED / Douyin)
 #   → Mbappe/output/landscape_final.mp4   (3840×1772 4K, Bilibili)
 
 # 4. Generate the cover
-python utils/cover.py Mbappe
+uv run utils/cover.py Mbappe
 #   → Mbappe/output/cover.jpg             (1280×720, image-only)
 ```
 
@@ -144,7 +147,7 @@ mkdir -p Ronaldo/{clips,assets/cards,output}
 # clips → Ronaldo/clips/  ·  lineup → Ronaldo/assets/landing.PNG
 # card cut-out → Ronaldo/assets/cards/ronaldo_card.png  ·  photo → Ronaldo/assets/ronaldo_poster.jpg
 cp Mbappe/edl.json Ronaldo/edl.json      # then edit it (see reference below)
-python utils/make_video.py Ronaldo       # utils/ is reused verbatim — no code changes
+uv run utils/make_video.py Ronaldo       # utils/ is reused verbatim — no code changes
 ```
 
 ## `edl.json` reference
@@ -181,7 +184,7 @@ Bilibili only routes videos whose short side is ≥ 1600 through its high-bitrat
 If you have a **full-match screen recording** instead of pre-cut clips, let the pipeline find your goals:
 
 ```bash
-python utils/hl_ocr.py <full_match.mp4> <player>
+uv run utils/hl_ocr.py <full_match.mp4> <player>
 #   → <player>/highlights/goalN.mp4   (build-up → goal → stops at the card popup, EA cutscene excluded)
 #   → <player>/highlights/goals.json  ({goal_time, score, clip_in, clip_out, scorer})
 ```
@@ -233,7 +236,7 @@ landing_card_focus (the card's center pixel in the lineup image). Set it per pla
 5. One BGM track (optional)
 6. Caption text per segment (optional)
 (If I hand you a FULL-MATCH recording instead of clips, first run
-   python utils/hl_ocr.py <full_match.mp4> <player>
+   uv run utils/hl_ocr.py <full_match.mp4> <player>
  to auto-extract my goals into <player>/highlights/, then copy the ones to use into clips/.)
 
 # Do this, in order
@@ -242,12 +245,12 @@ landing_card_focus (the card's center pixel in the lineup image). Set it per pla
    clips → <player>/clips/ · lineup → <player>/assets/landing.PNG
    card cut-out → <player>/assets/cards/<player>_card.png
    photo → <player>/assets/<player>_poster.jpg · BGM → <player>/assets/bgm/ (or shared assets/bgm/)
-3. python utils/contact_sheet.py <player>   # identify segment #1..#N
+3. uv run utils/contact_sheet.py <player>   # identify segment #1..#N
 4. Write <player>/edl.json (copy Mbappe/edl.json), setting:
    project · landing_image · order · captions · landing_card_focus · poster;
    reuse Mbappe's trim_head/trim_tail/transition/bgm*/outro_* values.
-5. python utils/make_video.py <player>       # vertical + landscape 4K
-6. python utils/cover.py <player>            # cover (skip if you made one by hand)
+5. uv run utils/make_video.py <player>       # vertical + landscape 4K
+6. uv run utils/cover.py <player>            # cover (skip if you made one by hand)
 7. Open the results for review. To adjust captions/order/cover, edit edl.json and re-run 5/6.
 
 # Acceptance

@@ -32,15 +32,15 @@ FcMobile/
 
 **① Pick highlights** (optional — fully automatic, from a full-match recording)
 ```bash
-python utils/hl_ocr.py <full_match.mp4> <player>   # keeps only YOUR goals (left score +1),
+uv run utils/hl_ocr.py <full_match.mp4> <player>   # keeps only YOUR goals (left score +1),
                                                    # cuts "goal → card popup", EA cutscene excluded → <player>/highlights/
 ```
 Outputs `goalN.mp4` + `goals.json`. Copy the clips you want into `<player>/clips/`.
-(Manual cross-check: `python utils/hl_scan.py <video>` renders a frame timeline to inspect by eye.)
+(Manual cross-check: `uv run utils/hl_scan.py <video>` renders a frame timeline to inspect by eye.)
 
 **② Identify segments + configure**
 ```bash
-python utils/contact_sheet.py <player>        # thumbnail grid → learn which clip is segment #1..#N
+uv run utils/contact_sheet.py <player>        # thumbnail grid → learn which clip is segment #1..#N
 ```
 Then edit `<player>/edl.json`:
 - `order` = output order (segment numbers) ← **this is "concatenate + segment"**
@@ -51,12 +51,12 @@ See the [README `edl.json` reference](README.md#edljson-reference) for every fie
 
 **③ Render**
 ```bash
-python utils/make_video.py <player>           # → output/ vertical + landscape (intro/captions/transitions/outro/BGM, all automatic)
+uv run utils/make_video.py <player>           # → output/ vertical + landscape (intro/captions/transitions/outro/BGM, all automatic)
 ```
 
 **④ Cover**
 ```bash
-python utils/cover.py <player>                # cut-out card + real-life photo → output/cover.jpg
+uv run utils/cover.py <player>                # cut-out card + real-life photo → output/cover.jpg
 ```
 
 ## How "concatenate → segment → caption" maps to files
@@ -68,7 +68,7 @@ Highlight clips go into `clips/` → `edl.order` defines the concatenation order
 ```bash
 mkdir -p Ronaldo/{clips,assets,highlights,output}
 # clips → Ronaldo/clips/ ; landing.PNG, card cut-out, real-life poster → Ronaldo/assets/ ; write Ronaldo/edl.json
-python utils/make_video.py Ronaldo            # utils/ is reused verbatim — not a single line of code changes
+uv run utils/make_video.py Ronaldo            # utils/ is reused verbatim — not a single line of code changes
 ```
 
 The one thing you must set per player: `landing_card_focus` in `edl.json` — the new card's center position in the lineup image (so the intro zooms onto the right card).

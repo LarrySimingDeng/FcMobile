@@ -10,6 +10,7 @@
 ![Python](https://img.shields.io/badge/Python-3.9%2B-3776AB?logo=python&logoColor=white)
 ![Needs ffmpeg](https://img.shields.io/badge/needs-ffmpeg-007808?logo=ffmpeg&logoColor=white)
 ![Built with Pillow](https://img.shields.io/badge/built%20with-Pillow-blue)
+![Managed with uv](https://img.shields.io/badge/managed%20with-uv-7E56C2)
 ![Platform](https://img.shields.io/badge/platform-macOS%20·%20Linux%2FWin%20(换编码器)-lightgrey)
 
 </div>
@@ -59,21 +60,22 @@
 
 ## 环境依赖
 
-- **Python 3** —— 在 Python 3.14 上开发；3.9+ 都能跑。
-- **[Pillow](https://python-pillow.org/)** —— `pip install -r requirements.txt`
-- **ffmpeg + ffprobe** 在 `PATH` 里 —— 唯一的系统依赖，pip 装不了：
+- **[uv](https://docs.astral.sh/uv/)** —— 本项目使用的包 / 虚拟环境管理器。安装：`brew install uv` 或 `curl -LsSf https://astral.sh/uv/install.sh | sh`。
+- **Python 3.9+** —— 不用自己装，`uv` 会自动拉取并锁定合适的解释器（在 3.14 上开发）。
+- **[Pillow](https://python-pillow.org/)** —— 唯一的 Python 依赖；`uv` 依据 `pyproject.toml` / `uv.lock` 安装，无需手动 `pip`。
+- **ffmpeg + ffprobe** 在 `PATH` 里 —— uv 管不了的那个系统依赖：
   - macOS —— `brew install ffmpeg`
   - Debian/Ubuntu —— `sudo apt install ffmpeg`
 
 > `hl_ocr.py`（自动进球检测）**不需要任何 OCR 引擎** —— 它靠图像变化而非识别文字来判进球，所以没有额外东西要装。
 
 ```bash
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
+uv sync            # 在仓库根目录创建 .venv，并按锁文件安装 Pillow
 ```
 
-> **`make_video.py` 通过 `.venv/bin/python` 调用各渲染脚本**（仓库根目录下的虚拟环境）。请照上面的方式建好 venv，或者改 `utils/make_video.py` 顶部的 `PY=` 那行指向你的解释器。其余脚本用任何 `python` 都能跑。
+配置就这一步。之后用 `uv run` 跑任意脚本（例如 `uv run utils/make_video.py Mbappe`），环境有变动 uv 会自动同步。
+
+> **`make_video.py` 通过 `.venv/bin/python` 调用各渲染脚本**（仓库根目录下的虚拟环境）。`uv sync` 建好的正是这个 venv，开箱即用，无需 activate。（想换解释器就改 `utils/make_video.py` 顶部的 `PY=` 那行。）
 
 ### 平台说明
 
@@ -106,7 +108,8 @@ FcMobile/
 │   └── output/                #   vertical_final.mp4 · landscape_final.mp4 · cover.jpg
 ├── K77/                       # 第二个范例（Kvaratskhelia）
 ├── assets/                    # 各期通过 ../assets/ 共享的素材（landing.PNG, bgm/）
-├── requirements.txt
+├── pyproject.toml             # uv 项目 —— Python 依赖（Pillow）
+├── uv.lock                    # 锁定、可复现的依赖版本
 ├── LICENSE
 └── README.md
 ```
@@ -119,17 +122,17 @@ FcMobile/
 
 ```bash
 # 1. 生成素材总览图，看清哪条片段是第 #1..#N 段
-python utils/contact_sheet.py Mbappe
+uv run utils/contact_sheet.py Mbappe
 
 # 2. 编辑 Mbappe/edl.json  →  order / captions / landing_card_focus / poster / bgm
 
 # 3. 出两条成片（竖屏 + 横屏 4K）
-python utils/make_video.py Mbappe
+uv run utils/make_video.py Mbappe
 #   → Mbappe/output/vertical_final.mp4    (1080×1920, 小红书 / 抖音)
 #   → Mbappe/output/landscape_final.mp4   (3840×1772 4K, B 站)
 
 # 4. 出封面
-python utils/cover.py Mbappe
+uv run utils/cover.py Mbappe
 #   → Mbappe/output/cover.jpg             (1280×720, 纯图)
 ```
 
@@ -144,7 +147,7 @@ mkdir -p Ronaldo/{clips,assets/cards,output}
 # 片段 → Ronaldo/clips/  ·  阵容图 → Ronaldo/assets/landing.PNG
 # 卡抠图 → Ronaldo/assets/cards/ronaldo_card.png  ·  真人照 → Ronaldo/assets/ronaldo_poster.jpg
 cp Mbappe/edl.json Ronaldo/edl.json      # 然后照下面的说明改它
-python utils/make_video.py Ronaldo       # utils/ 原样复用 —— 一行代码都不用改
+uv run utils/make_video.py Ronaldo       # utils/ 原样复用 —— 一行代码都不用改
 ```
 
 ## `edl.json` 字段说明
@@ -181,7 +184,7 @@ B 站只把**短边 ≥ 1600** 的视频送进它的 4K 高码率转码档；低
 如果你手上是**一整场比赛录屏**而不是剪好的片段，让管线自动帮你找进球：
 
 ```bash
-python utils/hl_ocr.py <整场比赛.mp4> <player>
+uv run utils/hl_ocr.py <整场比赛.mp4> <player>
 #   → <player>/highlights/goalN.mp4   (进球铺垫 → 进球 → 止于球员卡弹出，不含 EA 过场)
 #   → <player>/highlights/goals.json  ({goal_time, score, clip_in, clip_out, scorer})
 ```
@@ -231,7 +234,7 @@ python utils/hl_ocr.py <整场比赛.mp4> <player>
 5. 一首 BGM（可选）
 6. 每段字幕文案（可选）
 （如果给的是「一整场录像」而不是片段，先跑
-   python utils/hl_ocr.py <整场比赛.mp4> <player>
+   uv run utils/hl_ocr.py <整场比赛.mp4> <player>
  自动把我的进球挑到 <player>/highlights/，再把要用的拷进 clips/。）
 
 # 按顺序做
@@ -240,12 +243,12 @@ python utils/hl_ocr.py <整场比赛.mp4> <player>
    片段 → <player>/clips/ · 阵容图 → <player>/assets/landing.PNG
    卡抠图 → <player>/assets/cards/<player>_card.png
    真人照 → <player>/assets/<player>_poster.jpg · BGM → <player>/assets/bgm/（或共享 assets/bgm/）
-3. python utils/contact_sheet.py <player>   # 认段号 #1..#N
+3. uv run utils/contact_sheet.py <player>   # 认段号 #1..#N
 4. 写 <player>/edl.json（复制 Mbappe/edl.json），设：
    project · landing_image · order · captions · landing_card_focus · poster；
    trim_head/trim_tail/transition/bgm*/outro_* 沿用 Mbappe 的值。
-5. python utils/make_video.py <player>       # 竖屏 + 横屏 4K
-6. python utils/cover.py <player>            # 封面（手工做好就跳过）
+5. uv run utils/make_video.py <player>       # 竖屏 + 横屏 4K
+6. uv run utils/cover.py <player>            # 封面（手工做好就跳过）
 7. 打开成片给我看。要调字幕/顺序/封面就改 edl.json 重跑 5/6。
 
 # 验收
