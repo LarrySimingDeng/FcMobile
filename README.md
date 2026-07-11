@@ -18,21 +18,22 @@
 
 > **Core model: one player = one folder.** The shared engine lives in `utils/` and never changes. Each episode only touches its own `<player>/` folder and a single `<player>/edl.json`. Python + Pillow drive the layout and titling; ffmpeg does the encoding.
 
+<div align="center">
+  <img src="docs/pipeline.svg" width="880" alt="FcMobile pipeline: edl.json, clips/ and the shared utils/ engine feed make_video.py, which renders the fixed intro → optional stat card → gameplay segments → Apple-style outro structure (one BGM track underneath, clip audio muted) into a vertical 9:16 master and a 4K landscape master.">
+</div>
+
 ## What it produces
 
-Every render — vertical and landscape — has the same fixed structure:
-
-```
-Intro (lineup panorama → smooth zoom onto the featured player's card)
-   → optional stat-card hold
-      → gameplay segments (in-frame captions, played in `order`)
-         → Apple-style outro
-```
+Every render — vertical and landscape — follows the same fixed structure shown above: **intro (lineup panorama → smooth zoom onto the featured player's card) → optional stat-card hold → gameplay segments (in-frame captions, played in `order`) → Apple-style outro.**
 
 - Original clip audio is muted; a single BGM track plays underneath and fades out just before the outro.
 - **Vertical** — 1080×1920, captions inside a gold rounded frame on solid black bars (RED / Douyin).
 - **Landscape** — 4K 3840×1772 @ 30 Mbps (Bilibili — see [Why 4K](#why-4k-landscape)).
 - Every seam is a cross-fade (dissolve), never a hard cut.
+
+<div align="center">
+  <img src="docs/layout-vertical.svg" width="700" alt="Vertical 9:16 layout anatomy: the 16:9 gameplay clip is centered on solid black bars, and each caption is burned into a gold rounded frame.">
+</div>
 
 ## Results
 
@@ -50,17 +51,9 @@ Videos and covers produced by this exact pipeline:
 
 **Cover style** — `cover.py`, 1280×720, image-only (no text):
 
-```
-┌───────────────────────────────────────────┐
-│  ░░ atmospheric gradient + gold vignette ░░ │
-│   ┌───────┐                                 │
-│   │ CARD  │◄ tilted −5°, gold outer glow    │
-│   │ (cut- │                 ██████████      │
-│   │  out) │            real photo (right,   │
-│   └───────┘            left edge feathered  │
-│                        into the background) │
-└───────────────────────────────────────────┘
-```
+<div align="center">
+  <img src="docs/cover-layout.svg" width="700" alt="Cover layout: the player-card cut-out is tilted on the left with a gold outer glow; the real-life photo sits on the right with its left edge feathered into a warm atmospheric background with a gold vignette. Image-only, no text.">
+</div>
 
 > Sample covers/videos are **not committed** to this repo — they contain copyrighted player cards and athlete photos (see [Bring your own materials](#bring-your-own-materials)). Link to your own hosted posts above instead.
 
@@ -201,9 +194,13 @@ This repository ships **code, docs, and two example `edl.json` configs only.** I
 
 The materials used in the examples (EA SPORTS FC Mobile player cards, club/player imagery, real-life photographs, music tracks) are copyrighted by their respective owners. To make your own episode, supply your own materials and point `edl.json` at them.
 
+> The game itself is **[EA SPORTS FC™ Mobile](https://www.ea.com/games/ea-sports-fc/fc-mobile)** (free, iOS / Android). FcMobile is an unofficial, fan-made editing pipeline — **not affiliated with, sponsored by, or endorsed by EA**. Every diagram in this README is an original schematic; no EA game art is bundled or redistributed.
+
 ## License
 
 [MIT](LICENSE) © 2026 Siming Deng. The license covers the source and docs only — not any media you add. See the note at the bottom of `LICENSE`.
+
+**Credits** — the diagrams in this README are original. The soccer-ball icon in them is from [Twemoji](https://github.com/jdecked/twemoji) (© Twitter, licensed [CC-BY 4.0](https://creativecommons.org/licenses/by/4.0/)).
 
 ## Appendix — one-shot handoff prompt
 

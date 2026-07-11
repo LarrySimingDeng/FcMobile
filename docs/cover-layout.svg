@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 470" width="940" height="470" font-family="'Helvetica Neue', Arial, sans-serif">
+  <defs>
+    <radialGradient id="atmo" cx="0.6" cy="0.42" r="0.95">
+      <stop offset="0" stop-color="#4A3A1C"/><stop offset="0.5" stop-color="#171E14"/><stop offset="1" stop-color="#08200F"/>
+    </radialGradient>
+    <radialGradient id="cvig" cx="0.5" cy="0.5" r="0.72">
+      <stop offset="0.55" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity="0.7"/>
+    </radialGradient>
+    <radialGradient id="flood" cx="0.4" cy="-0.05" r="0.85">
+      <stop offset="0" stop-color="#EAF7EC" stop-opacity="0.12"/><stop offset="1" stop-color="#EAF7EC" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="pvig" cx="0.5" cy="0.45" r="0.85">
+      <stop offset="0.5" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#04250F" stop-opacity="0.72"/>
+    </radialGradient>
+    <linearGradient id="person" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#C9A074"/><stop offset="1" stop-color="#5A4526"/>
+    </linearGradient>
+    <linearGradient id="feather" gradientUnits="userSpaceOnUse" x1="392" y1="0" x2="504" y2="0">
+      <stop offset="0" stop-color="#000"/><stop offset="1" stop-color="#fff"/>
+    </linearGradient>
+    <mask id="featherMask"><rect x="380" y="100" width="230" height="315" fill="url(#feather)"/></mask>
+    <clipPath id="board"><polygon points="50,100 594,100 610,116 610,415 50,415"/></clipPath>
+    <filter id="cardglow" x="-60%" y="-60%" width="220%" height="220%">
+      <feDropShadow dx="0" dy="0" stdDeviation="7" flood-color="#F2C14E" flood-opacity="0.65"/>
+    </filter>
+    <!-- soccer ball — Twemoji (CC-BY 4.0), see README credits -->
+    <symbol id="ball" viewBox="0 0 36 36">
+      <circle fill="#F5F8FA" cx="18" cy="18" r="18"/>
+      <path fill="#CCD6DD" d="M18 11c-.552 0-1-.448-1-1V3c0-.552.448-1 1-1s1 .448 1 1v7c0 .552-.448 1-1 1zm-6.583 4.5c-.1 0-.202-.015-.302-.047l-8.041-2.542c-.527-.167-.819-.728-.652-1.255.166-.527.73-.818 1.255-.652l8.042 2.542c.527.167.819.729.652 1.255-.136.426-.53.699-.954.699zm13.625-.291c-.434 0-.833-.285-.96-.722-.154-.531.151-1.085.682-1.239l6.75-1.958c.531-.153 1.085.153 1.238.682.154.531-.151 1.085-.682 1.239l-6.75 1.958c-.092.027-.186.04-.278.04zm2.001 14.958c-.306 0-.606-.14-.803-.403l-5.459-7.333c-.33-.442-.238-1.069.205-1.399.442-.331 1.069-.238 1.399.205l5.459 7.333c.33.442.238 1.069-.205 1.399-.179.134-.389.198-.596.198zm-18.294-.083c-.197 0-.395-.058-.57-.179-.454-.316-.565-.938-.25-1.392l5.125-7.375c.315-.454.938-.566 1.392-.251.454.315.565.939.25 1.392l-5.125 7.375c-.194.281-.506.43-.822.43zM3.5 27.062c-.44 0-.844-.293-.965-.738L.347 18.262c-.145-.533.17-1.082.704-1.227.535-.141 1.083.171 1.227.704l2.188 8.062c.145.533-.17 1.082-.704 1.226-.088.025-.176.035-.262.035zM22 34h-9c-.552 0-1-.447-1-1s.448-1 1-1h9c.553 0 1 .447 1 1s-.447 1-1 1zm10.126-6.875c-.079 0-.16-.009-.24-.029-.536-.132-.864-.674-.731-1.21l2.125-8.625c.133-.536.679-.862 1.21-.732.536.132.864.674.731 1.211l-2.125 8.625c-.113.455-.521.76-.97.76zM30.312 7.688c-.17 0-.342-.043-.5-.134L22.25 3.179c-.478-.277-.642-.888-.364-1.367.275-.478.886-.643 1.366-.365l7.562 4.375c.478.277.642.888.364 1.367-.185.32-.521.499-.866.499zm-24.811 0c-.312 0-.618-.145-.813-.417-.322-.45-.22-1.074.229-1.396l6.188-4.438c.449-.322 1.074-.219 1.396.229.322.449.219 1.074-.229 1.396L6.083 7.5c-.177.126-.38.188-.582.188z"/>
+      <path fill="#31373D" d="M25.493 13.516l-7.208-5.083c-.348-.245-.814-.243-1.161.006l-7.167 5.167c-.343.248-.494.684-.375 1.091l2.5 8.583c.124.426.515.72.96.72H22c.43 0 .81-.274.948-.681l2.917-8.667c.141-.419-.011-.881-.372-1.136zM1.292 19.542c.058 0 .117-.005.175-.016.294-.052.55-.233.697-.494l3.375-6c.051-.091.087-.188.108-.291L6.98 6.2c.06-.294-.016-.6-.206-.832C6.584 5.135 6.3 5 6 5h-.428C2.145 8.277 0 12.884 0 18c0 .266.028.525.04.788l.602.514c.182.156.413.24.65.24zm9.325-16.547c.106.219.313.373.553.412l6.375 1.042c.04.006.081.01.121.01.04 0 .081-.003.122-.01l6.084-1c.2-.033.38-.146.495-.314.116-.168.158-.375.118-.575l-.292-1.443C22.26.407 20.18 0 18 0c-2.425 0-4.734.486-6.845 1.356l-.521.95c-.117.213-.123.47-.017.689zm20.517 2.724l-1.504-.095c-.228-.013-.455.076-.609.249-.152.173-.218.402-.175.63l1.167 6.198c.017.086.048.148.093.224 1.492 2.504 3.152 5.301 3.381 5.782.024.084.062.079.114.151.14.195.372.142.612.142h.007c.198 0 .323.094 1.768-.753.001-.083.012-.164.012-.247 0-4.753-1.856-9.064-4.866-12.281zM14.541 33.376c.011-.199-.058-.395-.191-.544l-4.5-5c-.06-.066-.131-.122-.211-.163-5.885-3.069-5.994-3.105-6.066-3.13-.078-.025-.161-.039-.242-.039-.537 0-.695.065-1.185 2.024 2.236 4.149 6.053 7.316 10.644 8.703l1.5-1.333c.149-.132.239-.319.251-.518zm17.833-8.567c-.189-.08-.405-.078-.592.005l-6.083 2.667c-.106.046-.2.116-.274.205l-4.25 5.083c-.129.154-.19.352-.172.552.02.2.117.384.272.51.683.559 1.261 1.03 1.767 1.44 4.437-1.294 8.154-4.248 10.454-8.146l-.712-1.889c-.072-.193-.221-.347-.41-.427z"/>
+    </symbol>
+  </defs>
+
+  <!-- pitch frame -->
+  <g>
+    <rect x="0" y="0" width="118" height="470" fill="#10633A"/><rect x="118" y="0" width="118" height="470" fill="#0D5433"/><rect x="236" y="0" width="118" height="470" fill="#10633A"/><rect x="354" y="0" width="118" height="470" fill="#0D5433"/><rect x="472" y="0" width="118" height="470" fill="#10633A"/><rect x="590" y="0" width="118" height="470" fill="#0D5433"/><rect x="708" y="0" width="118" height="470" fill="#10633A"/><rect x="826" y="0" width="118" height="470" fill="#0D5433"/>
+  </g>
+  <rect width="940" height="470" fill="url(#flood)"/>
+  <rect width="940" height="470" fill="url(#pvig)"/>
+
+  <!-- title -->
+  <use href="#ball" x="34" y="36" width="28" height="28"/>
+  <text x="72" y="56" font-size="22" font-weight="800" letter-spacing="0.3" fill="#F2F7F3">Cover layout</text>
+  <text x="900" y="52" text-anchor="end" font-size="12" font-weight="700" letter-spacing="1.5" fill="#F2C14E" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace">16:9 · 1280×720 · image-only</text>
+  <line x1="72" y1="70" x2="210" y2="70" stroke="#F2C14E" stroke-width="2"/>
+
+  <!-- ===== cover artboard (its own cinematic look) ===== -->
+  <polygon points="50,100 594,100 610,116 610,415 50,415" fill="#08200F"/>
+  <g clip-path="url(#board)">
+    <rect x="50" y="100" width="560" height="315" fill="url(#atmo)"/>
+    <!-- real photo (right), left edge feathered in -->
+    <g mask="url(#featherMask)">
+      <rect x="390" y="100" width="220" height="315" fill="#141B26"/>
+      <circle cx="516" cy="234" r="48" fill="url(#person)"/>
+      <path d="M436,415 C444,338 482,290 516,290 C550,290 588,338 596,415 Z" fill="url(#person)"/>
+    </g>
+    <rect x="50" y="100" width="560" height="315" fill="url(#cvig)"/>
+    <!-- player-card cut-out (left), tilted, gold glow -->
+    <g transform="rotate(-6,176,258)" filter="url(#cardglow)">
+      <polygon points="116,172 226,172 236,182 236,344 116,344" fill="#0F1A16" stroke="#F2C14E" stroke-width="2.4"/>
+      <polygon points="128,186 150,186 150,196 128,196" fill="#F2C14E" opacity="0.9"/>
+      <line x1="128" y1="202" x2="150" y2="202" stroke="#F2C14E" stroke-width="1.2" opacity="0.6"/>
+      <circle cx="176" cy="250" r="24" fill="#254231" fill-opacity="0.55" stroke="#8FB7A0" stroke-width="1.3"/>
+      <path d="M140,338 C146,300 162,284 176,284 C190,284 206,300 212,338 Z" fill="#254231" fill-opacity="0.55" stroke="#8FB7A0" stroke-width="1.3"/>
+      <line x1="128" y1="330" x2="224" y2="330" stroke="#F2C14E" stroke-width="1.3" opacity="0.6"/>
+    </g>
+  </g>
+  <polygon points="50,100 594,100 610,116 610,415 50,415" fill="none" stroke="#2A6A47" stroke-width="1.5"/>
+
+  <!-- callouts -->
+  <g stroke="#F2C14E" stroke-width="1.3" fill="none" opacity="0.85">
+    <path d="M236,178 L236,120 L620,120"/>
+    <path d="M560,236 L620,236"/>
+  </g>
+  <g fill="#F2C14E"><rect x="233" y="175" width="6" height="6"/><rect x="557" y="233" width="6" height="6"/></g>
+
+  <rect x="628" y="112" width="7" height="7" fill="#F2C14E"/>
+  <text x="646" y="120" font-size="15" font-weight="700" fill="#F2F7F3">Player card cut-out</text>
+  <text x="646" y="140" font-size="12" fill="#A9C6B5">left · tilted −6° · gold outer glow</text>
+
+  <rect x="628" y="228" width="7" height="7" fill="#F2C14E"/>
+  <text x="646" y="236" font-size="15" font-weight="700" fill="#F2F7F3">Real photo</text>
+  <text x="646" y="256" font-size="12" fill="#A9C6B5">right · left edge feathered in</text>
+
+  <line x1="50" y1="440" x2="610" y2="440" stroke="#1F5B3C" stroke-width="1"/>
+  <text x="50" y="460" font-size="12.5" fill="#A9C6B5">Image-only — warm atmosphere, gold vignette, <tspan fill="#F2F7F3" font-weight="700">no text baked in</tspan>.</text>
+</svg>
