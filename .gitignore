@@ -1,0 +1,42 @@
+# .gitignore — FcMobile
+# Publish code + docs + example edl.json ONLY.
+# Never commit copyrighted game footage, player cards, real-life photos, or BGM.
+
+# ── Python ─────────────────────────────────────────────────
+.venv/
+__pycache__/
+*.py[cod]
+
+# ── macOS ──────────────────────────────────────────────────
+.DS_Store
+
+# ── Local-only tooling & personal notes (not part of the public project) ──
+.claude/
+PROGRESS.md
+OCR_UPGRADE_PROMPT.md
+
+# ── Heavy / copyrighted media — "bring your own" (see README) ──
+*.mp4
+*.MOV
+*.mov
+*.mp3
+*.png
+*.PNG
+*.jpg
+*.jpeg
+*.JPG
+*.JPEG
+*.webp
+*.WEBP
+
+# Ignore the CONTENTS of generated / material directories …
+**/clips/**
+**/highlights/**
+**/output/**
+**/assets/**
+
+# … but keep the empty-folder skeleton so a fresh clone has the layout.
+# (.gitkeep placeholders survive; the nested asset dirs are re-included so git can reach them.)
+!**/assets/cards/
+!**/assets/bgm/
+!**/.gitkeep

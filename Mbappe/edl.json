@@ -1,0 +1,30 @@
+{
+  "project": "姆巴佩SS测评",
+  "landing_image": "../assets/landing.PNG",
+  "order": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18],
+  "captions": {
+    "1": "弧顶直接触发银搓，十射九中",
+    "2": "速度太快了，直接速度生吃对手",
+    "3": "转身非常粘球，起速非常快，可以靠马赛回旋转身，快速拉开空间加速",
+    "6": "牛尾巴起速特别快，适合禁区内突然启动",
+    "9": "这速度…真的超标",
+    "12": "牛尾巴快速启动"
+  },
+  "trim_head": 1.0,
+  "trim_tail": 0.8,
+  "transition": 0.5,
+  "outro_title": "感谢观看",
+  "outro_subtitle": "点个关注，下期见",
+  "bgm": "../assets/bgm/DaiDai-shakira.mp3",
+  "bgm_gain_db": -6,
+  "bgm_tail_gap_s": 1,
+  "bgm_fade_dur_s": 3,
+  "poster": {
+    "card": "assets/cards/mbappe_card.png",
+    "person": "assets/mbappe_poster.jpg",
+    "card_scale": 460,
+    "person_width": 920
+  },
+  "landing_card_focus": {"cx": 1386, "cy": 278, "w_vertical": 300, "w_horizontal": 680},
+  "_notes": "一个球员=一个文件夹：素材(.MOV)、landing.PNG、edl.json、assets/、build/、output/、highlights/ 全在本文件夹内。换新卡:复制本结构→换素材/landing/卡图→改 order/captions/landing_card_focus→跑 python fcm_edit/make_video.py <本文件夹路径>。"
+}

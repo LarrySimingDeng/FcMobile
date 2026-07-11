@@ -1,0 +1,26 @@
+{
+  "project": "科瓦拉茨赫利亚UCL测评",
+  "landing_image": "../assets/landing.PNG",
+  "stat_card": "assets/k77-data.PNG",
+  "stat_card_dur": 3.0,
+  "order": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+  "captions": {
+    "1": "转身加速特别快，启动速度很快",
+    "3": "弧顶、银搓、必中",
+    "4": "盘带手感非常的丝滑",
+    "5": "边路爆破，特别快",
+    "6": "拉不住，根本拉不住",
+    "9": "牛尾巴，快速启动，杀入禁区"
+  },
+  "trim_head": 1.0,
+  "trim_tail": 0.8,
+  "transition": 0.5,
+  "outro_title": "感谢观看",
+  "outro_subtitle": "点个关注，下期见",
+  "bgm": "../assets/bgm/Las Mujeres Ya No Lloran.mp3",
+  "bgm_gain_db": -6,
+  "bgm_tail_gap_s": 1,
+  "bgm_fade_dur_s": 3,
+  "landing_card_focus": {"cx": 1005, "cy": 270, "w_vertical": 300, "w_horizontal": 680},
+  "_notes": "K77=科瓦拉茨赫利亚。landing 与 BGM 均取公共 ../assets/(全项目共享，非 per-player)。封面手工制作: output/cover.png，不跑 cover.py。"
+}
